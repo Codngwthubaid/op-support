@@ -1,33 +1,47 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { GridScan } from "@/components/GridScan";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
   title: "OP Support - AI powered customer care chatbot builder",
-  description: "OP Support is an AI powered customer care chatbot builder that integrate with your existing doc's, website links, manual text data to provide accurate and instant responses to customer queries. And you can integrate it with multiple platforms with a single script.",
+  description:
+    "OP Support is an AI powered customer care chatbot builder that integrates with your docs, links, and text to answer customer queries instantly.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} bg-[#050509] min-h-screen font-sans text-zinc-100 antialiased`}
       >
-        {children}
+        <div className="fixed inset-0 -z-10 pointer-events-none">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#392e4e"
+            gridScale={0.1}
+            scanColor="#FF9FFC"
+            scanOpacity={0.4}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            className={undefined}
+            style={undefined}
+          />
+        </div>
+
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );
